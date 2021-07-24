@@ -34,13 +34,13 @@ class ListNode {
     }
 }
 //单项链表,存储头尾节点和节点数量
-var MyLinkedList = function(){
+var QCLinkedList = function(){
     this._size = 0;
     this._tail = null;
     this._head = null;
 }
 //通过index获取node，再实现一个方法返回val，如果没有返回-1
-MyLinkedList.prototype.getNode = function(index){
+QCLinkedList.prototype.getNode = function(index){
     if(index < 0 || index>=this._size) return null;
     //创建虚拟头节点,虚拟头节点 -> head
     let cur = new ListNode(0,this._head);
@@ -51,13 +51,14 @@ MyLinkedList.prototype.getNode = function(index){
     return cur;
 }
 //然后通过get放回val
-MyLinkedList.prototype.get =function(index){
+QCLinkedList.prototype.getAtIndex =function(index){
     if(index < 0 || index >= this._size) return -1;
     //获取当前节点
     return this.getNode(index).val;
 }
+
 //在头部添加节点
-MyLinkedList.prototype.addAtHead = function(val){
+QCLinkedList.prototype.addAtHead = function(val){
     //将当前节点的next指向之前的head
     const node = new ListNode(val,this._head);
     //然后将this._head指向当前节点
@@ -70,7 +71,7 @@ MyLinkedList.prototype.addAtHead = function(val){
 //在尾部添加节点
 
 /*
-MyLinkedList.prototype.addAtTail = function(val){
+QCLinkedList.prototype.addAtTail = function(val){
     const node = new ListNode(val,null);//最后一个没有next
     this._size++;
     //如果tail已经存在
@@ -84,8 +85,6 @@ MyLinkedList.prototype.addAtTail = function(val){
     //如果是_tail不存在，相当于初始化状态
     this._tail = node;
     this._head = node;
-    
-
 }
 */
 
@@ -93,7 +92,7 @@ MyLinkedList.prototype.addAtTail = function(val){
 
 //在链表的结尾插入新节点
 
-MyLinkedList.prototype.addAtTail = function(val){
+QCLinkedList.prototype.addAtTail = function(val){
     var node = new ListNode(val,null);
     //如果链表没有节点
     if(!this._head){
@@ -111,10 +110,29 @@ MyLinkedList.prototype.addAtTail = function(val){
     this._size++;
 }
 
+//判断val是否存在，并返回index
+QCLinkedList.prototype.getAtVal = function(val){
+    
+    if(this._head){
+        var current = this._head;
+        var index = 0;
+        while(current.next){
+            if(current.val == val){
+                return index;
+            }else{
+                index++;
+                current = current.next;
+            }
+        }
+        return -1;
+    }else{
+        return -1;
+    }
+}
 
 
 //按index添加node，而不仅仅是在首尾两个部分添加
-MyLinkedList.prototype.addAtIndex = function(index,val){
+QCLinkedList.prototype.addAtIndex = function(index,val){
     if(index > this._size) return;
     if(index <= 0){
         //那就在头部添加
@@ -135,7 +153,7 @@ MyLinkedList.prototype.addAtIndex = function(index,val){
 }
 
 //按index删除node
-MyLinkedList.prototype.deleteAtIndex = function(index){
+QCLinkedList.prototype.deleteAtIndex = function(index){
     if(index < 0 || index >= this._size) return;
     if(index === 0) {
         this._head = this._head.next;
@@ -154,19 +172,25 @@ MyLinkedList.prototype.deleteAtIndex = function(index){
 
 }
 
-var obj = new MyLinkedList()
+var obj = new QCLinkedList()
 obj.addAtTail(1);
 obj.addAtTail(2);
 obj.addAtTail(4);
 obj.addAtHead(5);
-console.log(JSON.stringify(obj));//输出的时候字符串化，就可以看到所有数据
-console.log(obj.get(2));//得到2
-console.log(obj.deleteAtIndex(2))//删除
-console.log(JSON.stringify(obj));
+// console.log(JSON.stringify(obj));//输出的时候字符串化，就可以看到所有数据
+// console.log(obj.getAtIndex(2));//得到2
+// console.log(obj.deleteAtIndex(2))//删除
+// console.log(JSON.stringify(obj));
 
 //这个增加的方法好像失败了
 obj.addAtIndex(2,2)
 console.log(JSON.stringify(obj));
 
+console.log(obj.getAtVal(5)) 
+
+
+
+//todo1:可以创建一个链表的工具类
+//todo2:如何让其同时支持es module和commonjs规范
 
 
