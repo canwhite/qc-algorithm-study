@@ -109,12 +109,35 @@ var mergeLinkedList2 = (list1,list2)=>{
         if(current1.val < current2.val){
             list.addAtTail(current1.val);
             current1 = current1.next;
+        }else{
+            list.addAtTail(current2.val);
+            current2 = current2.next;
         }
-        
-
     }
-    
 
-
+    //找到新链表的最后一个节点
+    var current = list._head;
+    //如果下一个节点存在，就切到下一个节点
+    while(current.next){
+        current = current.next;
+    }
+    //如果链表一比较长的话，继续将链表一后边的数据拼到后边
+    if(current1){
+        while(current1){
+            list.addAtTail(current1.val);
+            current1 = current1.next;
+        }
+    }
+    if(current2){
+        while(current2){
+            list.addAtTail(current2.val);
+            current2 = current2.next;
+        }
+    }
+    return list;
 
 }
+
+const result2 = mergeLinkedList2(list1,list2);
+console.log("result2",JSON.stringify(result2));
+
