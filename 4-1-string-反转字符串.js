@@ -16,6 +16,7 @@
 
 var reverseString = function(s){
     let l = -1, r = s.length;
+    //这里用到es6的解构赋值，后边的值相当于赋给来前边部分
     while(++l < --r) [s[l], s[r]] = [s[r], s[l]];
     return s;   
 }
