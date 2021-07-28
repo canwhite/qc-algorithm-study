@@ -23,3 +23,15 @@ queue.empty(); // 返回 false
 */
 
 // 使用两个数组的栈方法（push, pop） 实现队列
+var MyQueue = function(){
+    this.stack1 = [];
+    this.stack2 = [];
+}
+//push就是简单的push
+MyQueue.prototype.push = function(x){
+    this.stack1.push(x);
+}
+
+/*
+pop的时候稍显复杂一点
+*/
