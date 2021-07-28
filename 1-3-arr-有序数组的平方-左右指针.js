@@ -46,10 +46,10 @@ let sortedSquares2 = nums=>{
         if (right > left) {
             // push element to the front of the array
             res.unshift(right * right)
-            j--
+            j--;//后边的是自减
         } else {
             res.unshift(left * left)
-            i++
+            i++;//前边的是自加
         }
     }
     return res
