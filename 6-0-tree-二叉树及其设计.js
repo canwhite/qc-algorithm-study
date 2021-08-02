@@ -109,3 +109,213 @@ C++中map、set、multimap，multiset的底层实现都是平衡二叉搜索树�
 */
 
 //基本二叉树的设计,这是一个无序的二叉树
+function BinaryTree(){
+    //节点对象
+    var Node = function(val){
+        this.value =val;
+        this.left = null;
+        this.right = null;
+    }
+    //根节点
+    this.root = null;
+    //插入节点的方法(递归)
+    var insertNode = function(node,newNode){
+        
+        if(newNode.value < node.value){
+            if(node.left ===null){
+                node.left = newNode;
+            }else{
+                insertNode(node.left,newNode);
+            }
+        }else{
+            if(node.right ===null){
+                node.right = newNode;
+            }else{
+                insertNode(node.right,newNode);
+            }
+        }
+    }
+    //创建新节点，判断开启上边的递归方法
+    this.insert = function(val){
+        var newNode = new Node(val);
+        if(this.root == null){
+            this.root = newNode;//终止操作
+        }else{
+            insertNode(this.root,newNode);
+        }
+    }
+    //中序排序，中间节点输出在中间
+    var middleOrderTraverseNode = function(node,callback){
+        if(node!=null && node!=undefined){
+            middleOrderTraverseNode(node.left,callback);
+            callback(node.value);
+            middleOrderTraverseNode(node.right,callback);
+        }
+    }
+    this.middleOrderTraverse = function(callback){
+       middleOrderTraverseNode(this.root,callback);
+    }
+
+    //先序排序，中间节点前边输出
+    var preOrderTraverseNode = function(node,callback){
+        if(node !== null && node !== undefined){
+          callback(node.key);
+          preOrderTraverseNode(node.left,callback);
+          preOrderTraverseNode(node.right,callback);
+        }
+    }
+    this.preOrderTraverse = function(callback){
+        preOrderTraverseNode(this.root,callback);
+    }
+
+    //后续排序，中间节点后边输出
+    var postOrderTraverseNode = function(node,callback){
+        if(node !== null && node !== undefined){
+          postOrderTraverseNode(node.left,callback);
+          postOrderTraverseNode(node.right,callback);
+          callback(node.key);
+        }
+    }
+    this.postOrderTraverse = function(callback){
+        postOrderTraverseNode(this.root,callback);
+    }
+
+    //二叉树查找指定的值
+    //查找和其它值又有区别，insert之类的总会自动停止
+    //查找不让它停止的话他会一直循环下去
+    /*===================================
+    查询类的特别适合尾递归，这里讲下尾递归和非尾递归的区别
+    function story() {    
+        从前有座山，山上有座庙，庙里有个老和尚，一天老和尚对小和尚讲故事：story() // 尾递归，
+        进入下一个函数不再需要上一个函数的环境了，得出结果以后直接返回。
+    }
+    function story() {
+        从前有座山，山上有座庙，庙里有个老和尚，一天老和尚对小和尚讲故事：story()，
+        小和尚听了，找了块豆腐撞死了 // 非尾递归，
+        下一个函数结束以后此函数还有后续，所以必须保存本身的环境以供处理返回值。
+    }
+    so:查询的时候特别适合用尾递归，因为一旦找到不需要后边的环境，再像上边一样加上一些边界判断
+    =====================================*/
+    var searchNode = function(node,val){
+        if(node != null && node !=undefined ){
+            if(val<node.value){
+               return searchNode(node.left,val);
+            }else if(val>node.value){
+                return searchNode(node.right,val);
+            }else{
+                //如果相等
+                return node;
+            }
+        }else{
+            //==如果等于null，返回false==
+            return false;
+        }
+    }
+    this.search = function(val){
+        return searchNode(this.root,val);
+    }
+
+    //查找二叉树的最小值
+    //查找最小值我们是往最左边查
+    var minNode = function(node){
+        if(node == null){
+            return null;
+        }
+        if(node.left == null){
+            return node.value;
+        }else{
+            return minNode(node.left);
+        }
+    }
+    this.min = function(){
+        return minNode(this.root);
+    }
+
+    //查找最大值
+    var maxNode = function(node){
+        if(node){
+            if(node.right){
+                return maxNode(node.right);
+            }else{
+                return node.value;
+            }
+        }
+    }
+    this.max = function(){
+        return maxNode(this.root);
+    }
+
+    //查找右侧最小节点，给delete使用
+    var findMinNode = function(node){
+        if(node){
+            while(node.left){
+                node = node.left;                
+            }
+            return  node;
+        }
+        return null;
+    }
+    //删除节点
+    var deleteNode = function(node,val){
+
+        if(node!=null || node !=undefined){
+            //如果值小于node.value
+            if(val<node.value){
+                return deleteNode(node.left,val);
+            }
+            //如果大于，往右边寻找
+            else if(val> node.value){
+                return deleteNode(node.right,val);
+            }
+            //如果正好相等，就是我们操作的时候了
+            else{
+                //当节点为叶子节点的时候
+                if(node.left == null 
+                    && node.right == null){
+                    //node = null;//并不能删除节点
+                    node.value = null;
+                    return true;
+                }
+                //当前的左子树或者右子树为空的时候，通过改变指向删除
+                if(node.left == null){
+                    node = node.right;
+                    return true;
+                }else if(node.right == null){
+                    node = node.left;
+                    return true;
+                }
+                
+                //当左右节点都不为空的时候,从右边找一个最小的，放在这里
+                var aux = findMinNode(node.right);
+                node.value = aux.value;//将右边的最小值的值赋值到这个位置
+                //然后递归去改变右侧最小值的指向，将整体填充好
+                return deleteNode(node.right,aux.value);
+            }
+        }else{
+            return false;
+        }
+    }
+    this.delete = function(val){
+        return deleteNode(this.root,val);
+    }
+
+
+}
+
+let bt = new BinaryTree();
+bt.insert(35);
+bt.insert(44);
+bt.insert(90);
+bt.insert(45);
+bt.insert(100);
+bt.insert(2);
+console.log("min",bt.min());
+console.log("max",bt.max());
+
+bt.middleOrderTraverse((val)=>{
+    console.log("val",val);
+});
+console.log("search",bt.search(45));
+console.log("delete",bt.delete(45));
+console.log("delete",bt.delete(45));
+console.log(JSON.stringify(bt));
