@@ -302,7 +302,7 @@ function BinaryTree(){
 
 }
 
-let bt = new BinaryTree();
+/* let bt = new BinaryTree();
 bt.insert(35);
 bt.insert(44);
 bt.insert(90);
@@ -318,4 +318,6 @@ bt.middleOrderTraverse((val)=>{
 console.log("search",bt.search(45));
 console.log("delete",bt.delete(45));
 console.log("delete",bt.delete(45));
-console.log(JSON.stringify(bt));
+console.log(JSON.stringify(bt)); */
+
+module.exports = BinaryTree;

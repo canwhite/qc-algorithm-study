@@ -1,0 +1,11 @@
+{
+  "name": "qc-algorithm-study",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:canwhite/qc-algorithm-study.git",
+  "author": "qiaochao <752716886@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "qc-binarytree": "^1.0.0"
+  }
+}
