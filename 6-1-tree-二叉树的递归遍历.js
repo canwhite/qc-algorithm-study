@@ -47,20 +47,25 @@ var preorderTraversal = function(root,res=[]){
 let res =  preorderTraversal(bt.root,[]);
 console.log(res)
 
-//中序遍历
+//中序遍历,一层层遍历，一层层压，出来顺序正好是对的
 var inorderTraversal = function(root,res=[]){
     if (!root) return res;
     inorderTraversal(root.left, res);
-    res.push(root.val);
+    res.push(root.value);
     inorderTraversal(root.right, res);
     return res;
 }
 
-//后序遍历
+let res1 = inorderTraversal(bt.root,[]);
+console.log("inorder",res1);
+
+//后序遍历，一层层遍历一层层压，出来顺序正好是对的
 var postorderTraversal = function(root, res = []) {
     if (!root) return res;
     postorderTraversal(root.left, res);
     postorderTraversal(root.right, res);
-    res.push(root.val);
+    res.push(root.value);
     return res;
 };
+let res2 = postorderTraversal(bt.root,[]);
+console.log("postOrder",res2);
