@@ -69,5 +69,3 @@ removeElement2 = (nums,val)=>{
 let result2 =  removeElement2(nums,val);
 console.log("result2",result2);
 
-
-
