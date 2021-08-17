@@ -139,11 +139,12 @@ var miniCostClimbingStairs2 = function(cost){
     dp[0] = 0; // 默认第一步都是不花费体力的
     dp[1] = 0;
     //console.log(cost.length);//10
-    //会加到等于cost.length那一步，因为最后一步为闭
+    //因为是从0开始的，所以到最后i==10的时候，其实已经超过了cost长度
+    //已经把最后一步的花费也算上了
     for (var i = 2; i <= cost.length; i++) {
+        //生成dp[i]
         dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
     }
-    //console.log(dp.length);//11
     return dp[cost.length];
 } 
 let result2 = miniCostClimbingStairs2(cost);
