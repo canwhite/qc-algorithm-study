@@ -6,6 +6,9 @@
   "author": "qiaochao <752716886@qq.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/parser": "^7.15.3",
+    "glob": "^7.1.7",
     "qc-binarytree": "^1.0.0"
   }
 }
