@@ -144,50 +144,55 @@ p[i-1][j]和dp[i - 1][j - weight[i]] 都在dp[i][j]的左上角方向（包括�
 
 //weight和value是物品两个属性的数组，size是背包容量
 function testWeightBagProblem(weight,value,size){
+	
+	//-----注意区分，行列和下标，行列总比下标多1
+	//-----下边循环的时候注意
 	let rows = weight.length;
-	let cols = size +1;//还有为0的情况
-	//js创建二维数组,分几行，每行情况
+	let cols = size +1;
+	
+	//js创建二维数组,分几行
 	let dp = Array.from({length: rows}).map(
 		//每行情况
 		() => Array(cols).fill(0)
 	);
-	//先说纵向rows
+	
+	//先说纵向rows，第一列，对应背包容量为0，价值为0
 	for (const i in rows) {
 		//当背包容量为0的时候，不用说最终价值也为0
 		dp[i][0]=0;
 	}
-	//再说横向cols
+	
+	//再说横向cols，第一行的初始化，对应物品价值
 	let first_item_weight = weight[0];
 	let first_item_value = value[0];
-	for (const j in cols) {
-		if(j>=1 && first_item_weight <=j){
+	for(var j =1;j<=cols;j++){
+		if(first_item_weight <= j){
 			dp[0][j] = first_item_value;
 		}
 	}
 	
 	//初始化一个最终值
 	let res = 0;
-	//然后更新dp数组：先遍历物品，再遍历背包。
-	for(var i = 1; i<=rows; i++){
+	//因为第一行设置完了，所以我们从1开始，下标到3
+	for(var i = 1; i< rows; i++){
 		let cur_weight = weight[i];
+		console.log("cur_weight",cur_weight);
 		let cur_val = value[i];
-		for(var j =1;j<=cols;j++){
+		console.log("cur_val",cur_val);
+		//因为第一列设置完了，所以从1开始，下标准到6
+		for(var j = 1;j < cols;j++){
+			//大了装不下
 			if(cur_weight > j){
-
+				dp[i][j] = dp[i-1][j]
+				if(dp[i][j]>res) res = dp[i][j]
+			//能装下的情况
 			}else{
-
+				dp[i][j] = Math.max(dp[i-1][j],dp[i - 1][j - cur_weight]+ cur_val)
+				if(dp[i][j]>res) res = dp[i][j]
 			}
 		}
 	}
-	
-
-	
-
-
-
-
-
-
-
-
+	return res;
 }
+let result = testWeightBagProblem([1, 3, 4, 5], [15, 20, 30, 55], 6);
+console.log(result);
