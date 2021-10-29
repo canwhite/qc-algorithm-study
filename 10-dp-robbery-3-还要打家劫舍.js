@@ -107,11 +107,11 @@ let rob = (root)=>{
     //如果偷父节点
     let money = root.val;
     //如果偷了父节点，就需要去孙子辈儿了，不考虑左孩子的情况
-    if(root.left != null){
+    if(root.left){
         money += rob(root.left.left) + rob(root.left.right);
     }
     //不考虑右孩子的情况
-    if(root.right != null){
+    if(root.right){
         money += rob(root.right.left) + rob(root.right.right);
     }
     //如果不偷父节点,偷两边子节点
@@ -123,8 +123,29 @@ let rob = (root)=>{
 //然后是记忆化递归---------------
 //通过缓存记忆孙子节点是否被遍历过了
 
+//1.-----多了memory的定义
+var memory = {};
 let rob1 = (root)=>{
-
+    if(root == null) return 0;
+    if(root.left == null && root.right == null) return root.val;
+    //2.-----多个memory在具体行为前的判断操作
+    if(memory.hasOwnProperty(root) && memory[root] != null) return memory[root];
+    //偷父节点
+    let money = root.val;
+    //如果偷了父节点，就需要去孙子辈儿了，不考虑左孩子的情况
+    if(root.left){
+        money += rob(root.left.left) + rob(root.left.right);
+    }
+    //不考虑右孩子的情况
+    if(root.right){
+        money += rob(root.right.left) + rob(root.right.right);
+    }
+    //不偷父节点
+    let money_c = rob(root.left) + rob(root.right);
+    //3.-----多了memory的存值操作
+    memory[root] = max(money, money_c)
+    //返回最大值
+    return max(money,money_c);
 
 }
 
@@ -132,5 +153,10 @@ let rob1 = (root)=>{
 //一个数组，两种状态的收获，index==0，是不偷的收获，index==1是偷的收获
 let rob2 = (root)=>{
 
+
+
+
+}
+let rob_tree = (node)=>{
     
 }
