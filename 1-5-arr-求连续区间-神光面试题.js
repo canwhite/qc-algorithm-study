@@ -26,7 +26,7 @@ var calcRanges = (arr)=>{
         while(index<arr.length &&  arr[index + 1] === arr[index] +1){
             //给end重新赋值
             range.end = arr[index + 1];
-            index ++;//改变开头，有点类似与滑动视窗
+            index ++;//改变开头，有点类似与滑动窗口
         }
         ranges.push(range);
     }
