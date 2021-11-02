@@ -152,11 +152,23 @@ let rob1 = (root)=>{
 //最后是动态规划-----------------
 //一个数组，两种状态的收获，index==0，是不偷的收获，index==1是偷的收获
 let rob2 = (root)=>{
-
-
-
-
+    let result = rob_tree(root);
+    //如果最后还要返回值，那就加return
+    return max(result[0],result[1]);
 }
 let rob_tree = (node)=>{
-    
+    //这里和讲解的有些微不同，
+    //index==0是偷当前节点，index==1是不偷当前节点
+    if(node ==null) return [0,0];
+    //无论是left和right，都有偷和不偷两种情况
+    let left = rob_tree(node.left);
+    let right = rob_tree(node.right);
+
+    //偷当前节点，不能不能偷子节点
+    let val1 = node.val + left[1] + right[1];
+
+    //不偷当前节点，可偷可不偷子节点
+    let val2 = max(left[0],left[1]) + max(right[0] + right[1]);
+
+    return (val1,val2);
 }
