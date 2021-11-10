@@ -9,6 +9,7 @@
     "@babel/core": "^7.15.0",
     "@babel/parser": "^7.15.3",
     "glob": "^7.1.7",
+    "html2json": "^1.0.2",
     "qc-binarytree": "^1.0.0"
   }
 }

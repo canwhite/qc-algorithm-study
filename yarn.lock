@@ -329,6 +329,11 @@ has-flag@^3.0.0:
   resolved "https://registry.nlark.com/has-flag/download/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
   integrity sha1-tdRU3CGZriJWmfNGfloH87lVuv0=
 
+html2json@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.nlark.com/html2json/download/html2json-1.0.2.tgz#c9d6d202fa65402386c202b345cf51bce80ed1ef"
+  integrity sha1-ydbSAvplQCOGwgKzRc9RvOgO0e8=
+
 inflight@^1.0.4:
   version "1.0.6"
   resolved "https://registry.npm.taobao.org/inflight/download/inflight-1.0.6.tgz#49bd6331d7d02d0c09bc910a1075ba8165b56df9"
