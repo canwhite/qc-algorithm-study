@@ -103,26 +103,24 @@ while(sum >= s ){
 let minSubArrayLength = (s,nums)=>{
     let result = Infinity;
     let sum = 0;//滑动窗口数值之和
-    let i = 0;//滑动窗口起始位置
-    let subLength = 0;//滑动窗口的长度
+    let l = 0;//左侧
+    let cnt = 0;//滑动窗口的长度
 
-    for(let j=0;j<nums.length;j++){
+    for(let r=0;r<nums.length;r++){
 
-        //sum是滑动窗口数值之和
-        sum += nums[j];
-
-        //使用while循环
+        //r是正常走的
+        sum += nums[r];
+        //只有sum >=s满足，我们就可以一直让l去滑动，但是r是暂时固定的
+        //直到不满足这个条件
         while(sum >=s){
             //取子序列的长度
-            subLength = j-i+1;
-            //result是我们最终要返回的长度
-            result = result < subLength ?result:subLength;
+            cnt = r-l+1;
+            //我们取得是最小连续数组
+            result = Math.min(cnt,result);
             //精髓就在于此处，先将当前的i值减去，缩小窗口的大小，然后再++，变换起点位置
-            sum -= nums[i++];
+            sum -= nums[l++];
         }
     }
-
-
     //如果result没有被赋值，就返回0，说明没有符合条件的子序列
     return result == Infinity ? 0 :result;
 }
