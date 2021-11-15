@@ -3,7 +3,8 @@
 题目------------------------------------ 
 求长度最小的子数组
 给定一个含有 n 个正整数的数组和一个正整数 s ，
-找出该数组中满足 ----其和 ≥ s  的长度最小的连续子数组，
+找出该数组中满足 
+----其和 ≥ s  的长度最小的连续子数组，
 并返回其长度。
 如果不存在符合条件的子数组，返回 0。
 
@@ -26,7 +27,7 @@ s = 7,
 
 
 
-//这里要的是最终返回长度
+//给定数组nums和和一个和值s，求满足
 let minSubArrayLen = (s,nums)=>{
     
     let sum = 0; //子序列的数值之和
@@ -88,8 +89,7 @@ for循环暴力破解，满足某些习惯
 while(sum >= s ){
     subLength = (j-i + 1);//取子序列的长度
     result = result < subLength ? result:subLength;
-    sum -= nums[i++];
-    //精髓就在于此处，先将当前的i减去，缩小窗口的大小，然后再++，变换起点位置
+    sum -= nums[i++];//精髓就在于此处，先将当前的i减去，缩小窗口的大小，然后再++，变换起点位置
 
 }
 一些录友会疑惑为什么时间复杂度是O(n)。
@@ -99,7 +99,7 @@ while(sum >= s ){
 每个元素在滑动窗后进来操作一次，出去操作一次，每个元素都是被被操作两次，
 所以时间复杂度是2 * n 也就是$O(n)$。
 ------------------------------------------------------------------*/
-
+//其和 ≥ s  的长度最小的连续子数组
 let minSubArrayLength = (s,nums)=>{
     let result = Infinity;
     let sum = 0;//滑动窗口数值之和
@@ -107,15 +107,22 @@ let minSubArrayLength = (s,nums)=>{
     let subLength = 0;//滑动窗口的长度
 
     for(let j=0;j<nums.length;j++){
+
+        //sum是滑动窗口数值之和
         sum += nums[j];
+
         //使用while循环
         while(sum >=s){
             //取子序列的长度
             subLength = j-i+1;
+            //result是我们最终要返回的长度
             result = result < subLength ?result:subLength;
+            //精髓就在于此处，先将当前的i值减去，缩小窗口的大小，然后再++，变换起点位置
             sum -= nums[i++];
         }
     }
+
+
     //如果result没有被赋值，就返回0，说明没有符合条件的子序列
     return result == Infinity ? 0 :result;
 }

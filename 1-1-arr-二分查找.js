@@ -52,10 +52,10 @@ var search = function(nums,target){
         //先判断中间边界
         if(nums[mid]===target) return mid;
         //然后判断左右，边界已经判断过了，注意减1，重新判断边界
-        let isSmall = nums[mid] < target;//如果满足说明在右边，以下思路都基于此
+        let isRight = nums[mid] < target;//如果满足说明在右边，以下思路都基于此
         //重新定义边界
-        l = isSmall ? mid+1 :l;//如果是右边大，左边界从中间靠右挪一位
-        r = isSmall ? r :mid-1;//如果右边大，右边界还是之前的位置
+        l = isRight ? mid+1 :l;//如果是右边大，左边界从中间靠右挪一位
+        r = isRight ? r :mid-1;//如果右边大，右边界还是之前的位置
     }
     return -1;
 }
@@ -78,17 +78,16 @@ console.log("result1",result1);
 */
 
 let search2 = function(nums,target){
-    //左右坐标初始化
     let l= 0,r = nums.length;//因为右边是开的，所以不用减1，最后一位也不参与计算
-    //区间
+    //区间[)
     while(l < r){
         //取中间
         let mid = (l+r) >>1;
         //如果中间正好是则返回中间
         if(nums[mid] === target) return mid;
-        let isSmall = nums[mid] < target;//这里判断是否满足在右边
-        l = isSmall ? mid+1 :l;
-        r = isSmall ? r:mid;//mid相当于那个开，因为循环是<,是虚的，所以不参与判断
+        let isRight = nums[mid] < target;//这里判断是否满足在右边
+        l = isRight ? mid+1 :l;//因为mid判断过了，且左边是实的
+        r = isRight ? r:mid;//mid相当于那个开，因为循环是<,是虚的，所以不参与判断
     }
     return -1;
 }
