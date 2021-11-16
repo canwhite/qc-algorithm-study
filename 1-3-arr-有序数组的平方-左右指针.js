@@ -53,7 +53,6 @@ let sortedSquares2 = nums=>{
         }
     }
     return res
-  
 }
 let result2 =  sortedSquares2(a);
 console.log("result1",result2);

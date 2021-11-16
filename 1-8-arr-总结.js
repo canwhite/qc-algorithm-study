@@ -89,7 +89,30 @@ removeElement = (nums,val)=>{
 
 这种解决平方问题是很合适的，
 因为这种需要从两边往中间夹，两边的大，中间的小
+左右指针和快慢指针一样，都可以使用一个for循环
+一个i在前，一个j在尾，然后只要满足i <= j,就可以持续变化
+将左右指针的移动在逻辑块儿中进行
 
+let sortedSquares2 = nums=>{
+    //首先放一个空的结果数组
+    let res = [];
+    //i从头部，j从尾部，i和j的增减自己完成，i<=j;
+    //当i==j的时候实际上是一个开放空间，虚的，因为不判断这种情况，所以等于是同一个值得情况不判断 
+    for (let i = 0, j = nums.length - 1; i <= j;) {
+        const left = Math.abs(nums[i])
+        const right = Math.abs(nums[j])
+        //一个从左，一个从右，构建新数组，从后往前加
+        if (right > left) {
+            // push element to the front of the array
+            res.unshift(right * right)
+            j--;//后边的是自减
+        } else {
+            res.unshift(left * left)
+            i++;//前边的是自加
+        }
+    }
+    return res
+}
 
 
 
