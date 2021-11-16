@@ -217,8 +217,77 @@ console.log("result",result);
 
 6.模拟行为---------------------------------------------------------------------
 
+这个不算什么算法，算是对循环不变原则的进一步拓展
+这里我们考察的是螺旋矩阵
 
 
+let generateMatrix = function(n) {
+
+    //先定义数据结构
+    const res = Array.from({length:n}).map(()=>Array.from({length:n}));
+
+    //定义每循环一个圈的起始位置
+    let startx = 0,starty = 0;
+
+    //每个圈循环几次，例如n为奇数3，那么loop=1只是循环一圈，矩阵中间的值需要单独处理
+    let loop = parseInt(n/2);
+
+    //矩阵中间的位置，例如：n为3，中间的位置是(1,1), n为5，中间的位置是(2,2)
+    let mid = parseInt(n/2);
+
+    //用来给矩阵中每一个空格赋值，初始值是1，依次递增
+    let count = 1;
+
+    
+    //每一圈循环，需要控制每一条边遍历的长度，offset是弹性边框，是需要除去的那一个
+    //我们可以用实例归纳思考，
+    //如果是第一圈我们去掉边界，就是减去1
+    //到了第二圈，除了两边已经用到的，我们还要预留一个位置作为开，所以是在最开始1的基础上加2
+    //这个画一个4*4就明白了
+    
+    let offset = 1;
+    var i,j;
+    while(loop--){
+        i = startx;
+        j = starty;
+        //下面开始画每一条边，四个循环就是模拟转了一圈
+        //模拟填充上行从左到右(左闭右开)
+        //填充行的时候为啥看j?
+        //第一行，行不变，列在变
+        for(j = starty;j< starty + n - offset;j++){
+            res[i][j] = count++;
+        }
+        //模拟填充右列从上到下(左闭右开)
+        for(i = startx; i< startx + n -offset;i++){
+            res[i][j] = count++;
+        }
+        //模拟填充下行从右到左(左闭右开)
+        for(;j>starty;j--){
+            res[i][j] = count ++ ;
+        }
+        //模拟填充左列从下到上(左闭右开)
+        for(;i>startx;i--){
+            res[i][j] = count++;
+        }
+        
+        //从第二圈开始的时候，起始位置各自加1，
+        //例如，第一圈起始位置是(0,0),第二圈起始位置是（1，1）
+        startx ++ ;
+        starty ++ ;
+
+
+        //offset控制每一圈里边每一条边遍历的长度
+        offset += 2;
+
+        //如果n为奇数的话，需要单独给矩阵最中间的位置赋值
+        if(n % 2){
+            res[mid][mid] = count;
+        }
+        return res;
+    }
+}
+let result =  generateMatrix(3);
+console.log(result);
 
 
 
