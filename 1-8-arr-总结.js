@@ -57,11 +57,9 @@ console.log("result",result);
 
 2.双指针之快慢指针----------------------------------------------------
 
-双指针法
-双指针法，又称为快慢指针法，
+快慢指针法的意义在于，慢指针指向值，快指针完成操作变化
 通过一个快指针和一个慢指针在一个for循环下完成两个for循环的工作
 
-快慢指针法的意义在于，慢指针指向值，快指针完成操作变化
 
 
 示例 1: 给定 nums = [3,2,2,3], 移除val = 3, 
@@ -119,6 +117,8 @@ let sortedSquares2 = nums=>{
 
 
 4.双指针之固定间距指针---------------------------------------------------------
+
+相当于定宽滑动窗口
 对一个字符串，在给定范围的长度里，最多有几个元音字符
 
 Input: s = "abciiidef", k = 3
@@ -126,39 +126,61 @@ Output: 3
 Explanation: The substring "iii" contains 3 vowel letters.
 
 
+const maxVowels = (s,k)=>{
+    const st = new Set(["a","e","i","o","u"]) ;
+    let res = 0;
+    let l = 0;//初始化左侧
+    let cnt = 0;
+    
+    //直接for循环的是右侧，左边界的变化在逻辑块中
+    //关键点在于满足某种情况的时候，l++，也就是左边界移动，计数变化
 
-
-
-
+    for(let r = 0; r< s.length; r++ ){
+        if(st.has(s[r])) cnt ++ ;
+        //同样是精髓,满足>=k的边界，也就是有边界一直加，到了该滑动的时候， 
+        //做了一个has判断，has的时候都会加l，移动左边界，但是不一定减
+        //如果之前的左边界是的话，我们减一个，因为这个滑过去了，不在窗口里了
+        if(r>=k && st.has(s[l++])) cnt -- ;
+        //存储的是最大满足
+        res = Math.max(res,cnt);
+        //如果正好，相当于最大值了，返回
+        if(res == k) return res;
+    }
+    return res;
+}
 
 
 
 5.滑动窗口---------------------------------------------------------------------
 有某个判断标准，满足的时候记录并滑动
 这和上边的固定间距指针又有区别，是动态的间距
+相当于非定宽滑动窗口
 
 let minSubArrayLength = (s,nums)=>{
     let result = Infinity;
     let sum = 0;//滑动窗口数值之和
-    let i = 0;//滑动窗口起始位置
-    let subLength = 0;//滑动窗口的长度
+    let l = 0;//左侧
+    let cnt = 0;//滑动窗口的长度
 
-    for(let j=0;j<nums.length;j++){
 
-        //sum是滑动窗口数值之和
-        sum += nums[j];
+    //直接for循环的是右侧，左边界的变化在逻辑块中
+    //关键点在于满足某种情况的时候，l++，也就是左边界移动，计数变化
+    for(let r=0;r<nums.length;r++){
+        //r是正常走的
+        sum += nums[r];
 
-        //使用while循环，当出现满足的情况的时候，记录这种情况，然后再滑动
+        //只有sum >=s满足，我们就可以一直让l去滑动，但是r是暂时固定的
+        //直到不满足这个条件
         while(sum >=s){
             //取子序列的长度
-            subLength = j-i+1;
-            //result是我们最终要返回的长度
-            result = result < subLength ?result:subLength;
+            cnt = r-l+1;
+            //我们取得是最小连续数组
+            result = Math.min(cnt,result);
             //精髓就在于此处，先将当前的i值减去，缩小窗口的大小，然后再++，变换起点位置
-            sum -= nums[i++];
+
+            sum -= nums[l++];
         }
     }
-
     //如果result没有被赋值，就返回0，说明没有符合条件的子序列
     return result == Infinity ? 0 :result;
 }
