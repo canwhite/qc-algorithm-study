@@ -27,10 +27,11 @@
 
 /********************************************** 
 本节关键特征点
-主要也是两个方法：
-getNode 虚拟头节点new virtual node -> head，通过while和index-- >= 0找到对应index的数据
-addAtTail  初始cur -> this.head ,next存在就一直往后找，直到找到尾巴
-
+主要也是三个方法：
+* getNode 虚拟头节点new virtual node -> head，通过while和index-- >= 0找到对应index的数据
+* addAtTail  初始cur -> this.head ,next存在就一直往后找，直到找到尾巴
+* deleteAtIndex 获取index-1的上一个节点node，将要删除的节点压缩掉，node.next = node.next.next，越过了删除节点
+当然无论是哪种，头尾是要单独判断的
 ***********************************************/
 
 
