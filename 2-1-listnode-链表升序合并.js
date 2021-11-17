@@ -1,6 +1,7 @@
 //声明单个node
 class ListNode {
-    //值和指针
+    //node节点类提供当前值和指针
+    //这是链表的基础单位，我们还要另外创建一个链表
     constructor(val,next){
         this.val = val;
         this.next = next;
@@ -17,12 +18,20 @@ function MyLinkedList(){
 
 //在链表的结尾插入新节点
 MyLinkedList.prototype.addAtTail = function(val){
+    //往尾部添，先新建一个node
     var node = new ListNode(val,null);
     //如果链表没有节点
     if(!this._head){
         this._head = node;
     }else{
-        //通过循环找到最后一个节点，然后让最后一个节点指向新节点
+        /*
+        特征：
+        current是个外置对象，一开始是haad
+        用来程接循环变化的next
+        next如果存在，就会一直往下走，
+        直到走到最后一个，在链表中相当好用
+
+        */
         var current = this._head;
         while(current.next){
             current = current.next;
