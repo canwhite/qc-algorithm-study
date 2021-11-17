@@ -98,7 +98,9 @@ QCLinkedList.prototype.addAtTail = function(val){
     if(!this._head){
         this._head = node;
     }else{
-        //通过循环找到最后一个节点，然后让最后一个节点指向新节点
+        /************************************************************************************
+            通过循环next，next一直给current赋值，找到最后一个节点，然后让最后一个节点指向新节点
+        ************************************************************************************/
         var current = this._head;
         while(current.next){
             current = current.next;
@@ -116,6 +118,7 @@ QCLinkedList.prototype.getAtVal = function(val){
     if(this._head){
         var current = this._head;
         var index = 0;
+        //也是循环next查找
         while(current.next){
             if(current.val == val){
                 return index;
