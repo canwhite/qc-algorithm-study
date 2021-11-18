@@ -91,6 +91,7 @@ console.log("----result1----",JSON.stringify(result));
 //递归的整体思路实际上和双指针法是一样的
 let reverse = function(pre,cur){
     if(!cur) return pre;
+    //其实主要就是着三步
     const temp = cur.next;
     cur.next = pre;
     pre = cur;
