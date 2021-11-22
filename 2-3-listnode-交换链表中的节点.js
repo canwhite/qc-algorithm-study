@@ -71,8 +71,8 @@ let swapPairs = function(head){
         let tmp1 = cur.next.next.next;
 
         cur.next = cur.next.next;//将2给到1
-        cur.next.next = tmp;//将1给到2
-        cur.next.next.next = tmp1;//将3给到3，归位
+        cur.next.next = tmp;//将预存的1给到2
+        cur.next.next.next = tmp1;//将预存的3给到3，归位
 
         //cur移动两位，准备下一轮交换
         cur = cur.next.next;
