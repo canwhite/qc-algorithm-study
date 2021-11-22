@@ -8,10 +8,16 @@
 
 思路-----------------------------------------------------------
 
-初始时，cur指向虚拟头结点，然后进行如下三步
+初始时，cur指向虚拟头结点，
 
-然后cur到2，2再到1，1再到2的后边
+暂存一下1
+暂存一下3
 
+将2给到1
+将1给到2
+将3给到3
+
+然后将cur往后移动两位，开启新的操作
 
 */
 
@@ -41,10 +47,38 @@ LinkedList.prototype.addAtTail = function(val){
         this._tail = node;
     }
 }
-let list = [2,4,5,6,7];
+let list = [2,4,5,6,7,9];
 let linkedList = new LinkedList();
 list.forEach((item)=>{
     linkedList.addAtTail(item);
 })
 
-console.log("----init----",JSON.stringify(linkedList)); 
+/* console.log("----init----",JSON.stringify(linkedList));  */
+
+//交换对儿
+let swapPairs = function(head){
+
+    //设置虚拟头节点并指向head
+    let dummyHead = new ListNode(0,head);
+    //将他赋值给cur，方便循环中使用
+    let cur = dummyHead;
+
+    //保证有偶数位的时候继续
+    while(cur.next && cur.next.next){
+        //记录1
+        let tmp = cur.next;
+        //记录3
+        let tmp1 = cur.next.next.next;
+
+        cur.next = cur.next.next;//将2给到1
+        cur.next.next = tmp;//将1给到2
+        cur.next.next.next = tmp1;//将3给到3，实际上是种归位
+
+        //cur移动两位，准备下一轮交换
+        cur = cur.next.next;
+    }
+    return dummyHead.next; 
+
+}
+let result = swapPairs(linkedList._head);
+console.log("result",JSON.stringify(result));
