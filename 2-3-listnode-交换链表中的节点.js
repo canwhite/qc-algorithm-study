@@ -72,7 +72,7 @@ let swapPairs = function(head){
 
         cur.next = cur.next.next;//将2给到1
         cur.next.next = tmp;//将1给到2
-        cur.next.next.next = tmp1;//将3给到3，实际上是种归位
+        cur.next.next.next = tmp1;//将3给到3，归位
 
         //cur移动两位，准备下一轮交换
         cur = cur.next.next;
