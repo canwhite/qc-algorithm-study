@@ -9,11 +9,11 @@ let html = `
 
 
 `
-//将html转化为json
+//1.将html转化为json
 
-//deepClone，找到video属性更改，生成新的json
+//2.deepClone，找到video属性更改，生成新的json
 
-//将json再转化为html
+//3.将json再转化为html
 
 
 
