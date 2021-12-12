@@ -37,7 +37,7 @@ var quickSort = function(arr){
     }
     //最后对这个过程进行递归，然后左右分别递归并与当前基准合并
     //递归不断重复这个过程，就可以得到排序后的数组。
-    return quickSort(left).concat(pivot,right);
+    return quickSort(left).concat(pivot,quickSort(right));
     
 }
 
