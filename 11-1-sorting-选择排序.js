@@ -15,7 +15,7 @@ function selectionSort(arr){
 	//右边是开的，因为j可以直接+1取到
 	//所以i< len-1,不取到最后一个数据
 	for(let i = 0; i< len-1; i++){
-		minIndex = i;
+		minIndex = i;//最开始i是等于0的
 		//因为要遍历n-1，个数，从1开始，so这里可以取到len开，最后一个数
 		//这里就是比对找最小下标
 		for(var j= i+1;j<len;j++){
