@@ -16,6 +16,7 @@
 
 //递归的方式：
 //确认参数，确认单次逻辑，确定返回值
+//类似于将将树形结构转化为打平的节点，
 let depth1 = (node,nodeList = [])=>{
     //node不能为null
     if(node != null){
@@ -24,6 +25,7 @@ let depth1 = (node,nodeList = [])=>{
         let children = node.children ||[];
         //for循环时横向，depth1是纵向
         for(let i = 0;i<children.length;i++){
+            //将子节点的和当前的nodeList传进去
             depth1(children[i],nodeList);
         }
     }
@@ -32,12 +34,13 @@ let depth1 = (node,nodeList = [])=>{
 
 //对obj的处理
 let obj = { 
+    index:0,
     children: [
         { 
-            index: 0, 
+            index: 1, 
             children: [
                 { 
-                    index: 1, 
+                    index: 2, 
                     children: [{ 
                         index: 3 
                     }] 

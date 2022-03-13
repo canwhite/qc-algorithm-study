@@ -10,7 +10,6 @@ let breadth = (node)=>{
     let nodes = [];
     let stack = [];
     if(node){
-
         stack.push(node);
         //如果stack里边有值
         while(stack.length){
@@ -31,12 +30,13 @@ let breadth = (node)=>{
 }
 //对obj的处理
 let obj = { 
+    index:0,
     children: [
         { 
-            index: 0, 
+            index: 1, 
             children: [
                 { 
-                    index: 1, 
+                    index: 2, 
                     children: [{ 
                         index: 3 
                     }] 
@@ -62,9 +62,3 @@ let obj = {
 }
 let result =  breadth(obj);
 console.log("==result==",result);
-
-
-/*
-
-
-*/
