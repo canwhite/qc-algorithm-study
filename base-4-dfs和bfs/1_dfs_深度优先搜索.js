@@ -34,39 +34,80 @@ let depth1 = (node,nodeList = [])=>{
 
 //对obj的处理
 let obj = { 
-    index:0,
+    value:0,
     children: [
         { 
-            index: 1, 
+            value: 1, 
             children: [
                 { 
-                    index: 2, 
+                    value: 2, 
                     children: [{ 
-                        index: 3 
+                        value: 3 
                     }] 
                 }
             ] 
         }, 
         { 
-            index: 4 
+            value: 4 
         }, 
         { 
-            index: 5, 
+            value: 5, 
             children: [{ 
-                index: 7, 
+                value: 7, 
                 children: [{ 
-                    index: 8 
+                    value: 8 
                 }] 
             }] 
         }, 
         { 
-            index: 6 
+            value: 6 
         }
     ] 
 }
 
 let arr = depth1(obj);
 console.log("-----",arr);
+
+//在理解完回溯之后，我们再来思考之前对dfs的理解，好像就有问题了
+//我只是遍历得到一个数组，而没有去实现搜索的目的，这样并不是dfs
+//现在在这里在写一个版本
+/**关于回溯和dfs的区别，有两种说法
+ * (1)回溯是一种方法论，而dfs更多的是一种实现
+ * (2)回溯 = dfs + 剪枝
+ *  对于我个人来说，我更倾向于第一种说法
+ * 回溯更多的是为了拿到全集和子集，而dfs是为了找到某个值，
+ * dfs是回溯的一种特例，这是我的理解
+ * 
+ * 以下是我重看回溯之后拿出来的dfs
+*/
+const dfs = function(start,target){
+    console.log("Visiting Node" +start.value);
+    //达成结果之后的返回
+    if(start.value == target){
+        console.log("Found ")
+        //dfs的实现
+        return start;
+    }
+    //遍历children直到拿到结果
+    //注意有的node可能没有这个children
+    for(var i = 0; i < start?.children?.length; i++){
+        var result = dfs(start.children[i],target);
+        //如果递归没有return，一直都是上边步骤
+        //拿到结果之后我们再做一层返回就可以了
+        if(result !== null){
+            return result;
+        }
+    }
+    //最后是一种没查到的情况
+    return null;
+}
+
+
+//调用一下看下效果
+const result =  dfs(obj,8);
+console.log("--result--",result);
+//这样就有点类似于深度优先查询的样子了
+
 
 
 
